@@ -1,0 +1,47 @@
+- name: Configure local machine after clean install
+  hosts: local               # Targets the 'local' group from inventory.ini
+  connection: local          # Ensures Ansible connects to the local machine
+  become: yes                # Allows tasks that require sudo (like package installation)
+  gather_facts: yes          # Collects system info (OS, distribution, etc.)
+
+  tasks:
+    - name: Test connectivity and show OS distribution
+      ansible.builtin.debug:
+        msg: "Starting setup for {{ ansible_facts['distribution'] }} on {{ inventory_hostname }}"
+
+    - name: Ensure Git is installed       # This task needs to be conditional based on your OS (Linux, Mac, Windows)
+      ansible.builtin.pacman:
+        name: git
+        state: present
+      when: ansible_facts['os_family'] == "Archlinux"
+
+    - name: Ensure Neovim is installed
+      ansible.builtin.pacman:
+        name: neovim
+        state: present
+
+    - name: Ensure Tmux is installed
+      ansible.builtin.pacman:
+        name: tmux
+        state: present
+
+    - name: Ensure hyprland is installed
+      ansible.builtin.pacman:
+        name: hyprland
+        state: present
+
+    - name: Ensure GNU Stow is installed
+      ansible.builtin.pacman:
+          name: stow
+          state: present
+
+    - name: Clone dotfiles repository
+      ansible.builtin.git:
+        repo: https://github.com/AFHH999/Dotfiles
+        dest: '~/Dotfiles'
+        version: main
+
+    - name: Ensure zsh is installed
+      ansible.builtin.pacman:
+        name: zsh
+        state: present
