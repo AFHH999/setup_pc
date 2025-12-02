@@ -2,15 +2,15 @@
 
 # Geting git and ansible
 echo "installing git and ansible...."
-sudo pacman -Syu --nocorfirm ansible git
+sudo pacman -Syu --noconfirm ansible git
 
 # Set up the directory
 REPO_URL="https://github.com/AFHH999/setup_pc"
 TARGET_DIR="$HOME/PC_setup/"
 
-if [ -d "TARGET_DIR" ]; then
+if [ -d "$TARGET_DIR" ]; then
     echo "directory $TARGET_DIR already exist. Pulling latest changes..."
-    cd "TARGET_DIR" || exit
+    cd "$TARGET_DIR" || exit
     git pull
 
 else
