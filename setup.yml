@@ -9,39 +9,39 @@
       ansible.builtin.debug:
         msg: "Starting setup for {{ ansible_facts['distribution'] }} on {{ inventory_hostname }}"
 
-    - name: Ensure Git is installed       # This task needs to be conditional based on your OS (Linux, Mac, Windows)
+    - name: Update package cache and install core packages
       ansible.builtin.pacman:
-        name: git
+        update_cache: yes
+        name:
+          - git
+          - neovim
+          - tmux
+          - hyprland
+          - waybar
+          - stow
+          - zsh
+          - fastfetch
+          - rustup
+          - btop
+          - fzf
+          - kitty
+          - bat
+          - ttf-jetbrains-mono-nerd
         state: present
       when: ansible_facts['os_family'] == "Archlinux"
-
-    - name: Ensure Neovim is installed
-      ansible.builtin.pacman:
-        name: neovim
-        state: present
-
-    - name: Ensure Tmux is installed
-      ansible.builtin.pacman:
-        name: tmux
-        state: present
-
-    - name: Ensure hyprland is installed
-      ansible.builtin.pacman:
-        name: hyprland
-        state: present
-
-    - name: Ensure GNU Stow is installed
-      ansible.builtin.pacman:
-          name: stow
-          state: present
 
     - name: Clone dotfiles repository
       ansible.builtin.git:
         repo: https://github.com/AFHH999/Dotfiles
-        dest: '~/Dotfiles'
+        dest: "{{ ansible_user_dir }}/Dotfiles"
         version: main
 
-    - name: Ensure zsh is installed
-      ansible.builtin.pacman:
-        name: zsh
-        state: present
+    - name: Stow dotfiles packages
+      ansible.builtin.command:
+        cmd: "stow -R -d {{ ansible_user_dir }}/dotfiles -t {{ ansible_user_dir }} {{ item }}"
+      loop:
+        - nvim
+        - zsh
+        - tmux
+        - hypr
+      ignore_errors: yes
