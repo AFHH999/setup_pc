@@ -5,7 +5,7 @@ echo "installing git and ansible...."
 sudo pacman -Syu --noconfirm ansible git
 
 # Set up the directory
-REPO_URL="https://github.com/AFHH999/setup_pc"
+REPO_URL="https://github.com/AFHH999/Dotfiles"
 TARGET_DIR="$HOME/PC_setup/"
 
 if [ -d "$TARGET_DIR" ]; then
