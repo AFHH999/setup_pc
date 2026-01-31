@@ -1,0 +1,18 @@
+- name: Configure machine (Universal DevSecOps Base)
+  hosts: local
+  connection: local
+  become: yes
+  gather_facts: yes
+
+  roles:
+    - role: common
+      tags: ['common', 'base']
+    
+    - role: security
+      tags: ['security', 'base']
+
+    - role: desktop
+      tags: ['desktop', 'workstation']
+
+    - role: dotfiles
+      tags: ['dotfiles']

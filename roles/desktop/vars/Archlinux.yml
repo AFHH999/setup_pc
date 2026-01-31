@@ -1,0 +1,6 @@
+desktop_packages:
+  - hyprland
+  - waybar
+  - kitty
+  - ttf-jetbrains-mono-nerd
+  - zsh-theme-powerlevel10k

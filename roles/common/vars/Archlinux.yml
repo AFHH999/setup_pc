@@ -1,21 +1,15 @@
-packages:
+common_packages:
   - git
   - neovim
   - tmux
-  - hyprland
-  - waybar
   - stow
   - zsh
   - fastfetch
   - rustup
   - btop
   - fzf
-  - kitty
   - bat
-  - ttf-jetbrains-mono-nerd
-  - zsh-theme-powerlevel10k
   - zoxide
   - trash-cli
   - lynis
-  - ufw        # Firewall (added for hardening)
-  - fail2ban   # Intrusion prevention (added for hardening)
+  - ufw

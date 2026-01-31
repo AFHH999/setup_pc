@@ -24,5 +24,5 @@ echo "Installing Ansible collections..."
 ansible-galaxy collection install community.general
 
 echo "Running the ansible playbook..."
-ansible-playbook -i inventory.ini setup.yml --ask-become-pass
+ansible-playbook -i inventory.ini site.yml --ask-become-pass
 echo "Setup complete! Please restart your shell or log out and back in."

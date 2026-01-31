@@ -1,4 +1,4 @@
-packages:
+common_packages:
   - git
   - neovim
   - tmux
@@ -8,11 +8,8 @@ packages:
   - rustup
   - btop
   - fzf
-  - kitty
   - bat
-  - jetbrains-mono-fonts
   - zoxide
   - trash-cli
   - lynis
   - ufw
-  - fail2ban

@@ -1,18 +1,15 @@
-packages:
+common_packages:
   - git
   - neovim
   - tmux
   - stow
   - zsh
+  - fastfetch
   - curl
   - btop
   - fzf
-  - kitty
   - bat
-  - fonts-jetbrains-mono
   - zoxide
   - trash-cli
   - lynis
   - ufw
-  - fail2ban
-# Note: Hyprland/Waybar are often not in default Debian repos.

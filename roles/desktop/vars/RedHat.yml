@@ -1,0 +1,6 @@
+desktop_packages:
+  - hyprland
+  - waybar
+  - kitty
+  - jetbrains-mono-fonts
+  - zsh-theme-powerlevel10k
