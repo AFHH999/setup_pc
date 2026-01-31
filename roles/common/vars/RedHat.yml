@@ -1,0 +1,18 @@
+packages:
+  - git
+  - neovim
+  - tmux
+  - stow
+  - zsh
+  - fastfetch
+  - rustup
+  - btop
+  - fzf
+  - kitty
+  - bat
+  - jetbrains-mono-fonts
+  - zoxide
+  - trash-cli
+  - lynis
+  - ufw
+  - fail2ban

@@ -1,0 +1,12 @@
+- name: Test connectivity and show OS distribution
+  ansible.builtin.debug:
+    msg: "Starting setup for {{ ansible_facts['distribution'] }} on {{ inventory_hostname }}"
+
+- name: Load OS-specific variables
+  ansible.builtin.include_vars:
+    file: "{{ ansible_facts['os_family'] }}.yml"
+
+- name: Update package cache and install core packages (Universal)
+  ansible.builtin.package:
+    name: "{{ packages }}"
+    state: present

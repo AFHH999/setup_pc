@@ -1,0 +1,18 @@
+packages:
+  - git
+  - neovim
+  - tmux
+  - stow
+  - zsh
+  - curl
+  - btop
+  - fzf
+  - kitty
+  - bat
+  - fonts-jetbrains-mono
+  - zoxide
+  - trash-cli
+  - lynis
+  - ufw
+  - fail2ban
+# Note: Hyprland/Waybar are often not in default Debian repos.

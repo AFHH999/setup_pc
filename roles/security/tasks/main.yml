@@ -1,0 +1,50 @@
+- name: Ensure UFW is installed
+  ansible.builtin.package:
+    name: ufw
+    state: present
+
+- name: Deny all incoming traffic by default
+  community.general.ufw:
+    policy: deny
+    direction: incoming
+
+- name: Allow all outgoing traffic by default
+  community.general.ufw:
+    policy: allow
+    direction: outgoing
+
+- name: Limit SSH connections (rate limiting)
+  community.general.ufw:
+    rule: limit
+    port: ssh
+    proto: tcp
+
+- name: Enable UFW
+  community.general.ufw:
+    state: enabled
+
+- name: Ensure Fail2Ban is installed and running
+  ansible.builtin.service:
+    name: fail2ban
+    state: started
+    enabled: yes
+  ignore_errors: yes # Gracefully handle if fail2ban isn't available/configured yet
+
+- name: Secure SSH - Disable Root Login
+  ansible.builtin.lineinfile:
+    path: /etc/ssh/sshd_config
+    regexp: '^#?PermitRootLogin'
+    line: 'PermitRootLogin no'
+    validate: 'sshd -t -f %s'
+  notify: Restart SSH
+
+- name: Secure SSH - Disable Password Authentication
+  ansible.builtin.lineinfile:
+    path: /etc/ssh/sshd_config
+    validate: 'sshd -t -f %s'
+  notify: Restart SSH
+
+- name: Security Audit Reminder
+  ansible.builtin.debug:
+    msg: "Hardening complete. Run 'sudo lynis audit system' to verify your security score."
+

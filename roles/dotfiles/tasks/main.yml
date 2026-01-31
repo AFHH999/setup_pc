@@ -1,0 +1,23 @@
+- name: Clone dotfiles repository
+  ansible.builtin.git:
+    repo: https://github.com/AFHH999/Dotfiles
+    dest: "{{ ansible_user_dir }}/Dotfiles"
+    version: main
+
+- name: Stow dotfiles packages
+  ansible.builtin.command:
+    cmd: "stow -R -d {{ ansible_user_dir }}/Dotfiles -t {{ ansible_user_dir }} {{ item }}"
+  loop:
+    - nvim
+    - zsh
+    - tmux
+    - hypr
+  ignore_errors: yes
+
+- name: Set zsh as default shell for the current user
+  ansible.builtin.user:
+    name: "{{ ansible_user_id }}"
+    shell: /usr/bin/zsh
+  when:
+    - ansible_facts['os_family'] == "Archlinux"
+    - ansible_user_shell != "/usr/bin/zsh"

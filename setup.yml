@@ -1,58 +1,10 @@
 - name: Configure local machine after clean install
-  hosts: local               # Targets the 'local' group from inventory.ini
-  connection: local          # Ensures Ansible connects to the local machine
-  become: yes                # Allows tasks that require sudo (like package installation)
-  gather_facts: yes          # Collects system info (OS, distribution, etc.)
+  hosts: local
+  connection: local
+  become: yes
+  gather_facts: yes
 
-  tasks:
-    - name: Test connectivity and show OS distribution
-      ansible.builtin.debug:
-        msg: "Starting setup for {{ ansible_facts['distribution'] }} on {{ inventory_hostname }}"
-
-    - name: Update package cache and install core packages
-      ansible.builtin.pacman:
-        update_cache: yes
-        name:
-          - git
-          - neovim
-          - tmux
-          - hyprland
-          - waybar
-          - stow
-          - zsh
-          - fastfetch
-          - rustup
-          - btop
-          - fzf
-          - kitty
-          - bat
-          - ttf-jetbrains-mono-nerd
-          - zsh-theme-powerlevel10k
-          - zoxide
-          - trash-cli
-        state: present
-      when: ansible_facts['os_family'] == "Archlinux"
-
-    - name: Clone dotfiles repository
-      ansible.builtin.git:
-        repo: https://github.com/AFHH999/Dotfiles
-        dest: "{{ ansible_user_dir }}/Dotfiles"
-        version: main
-
-    - name: Stow dotfiles packages
-      ansible.builtin.command:
-        cmd: "stow -R -d {{ ansible_user_dir }}/Dotfiles -t {{ ansible_user_dir }} {{ item }}"
-      loop:
-        - nvim
-        - zsh
-        - tmux
-        - hypr
-      ignore_errors: yes
-
-    - name: Set zsh as default shell for the current user
-      ansible.builtin.user:
-        name: "{{ ansible_user_id }}"
-        shell: /usr/bin/zsh
-      when:
-        - ansible_facts['os_family'] == "Archlinux"
-        - ansible_user_shell != "/usr/bin/zsh"
+  roles:
+    - common
+    - security
+    - dotfiles
