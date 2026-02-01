@@ -27,8 +27,8 @@
   ansible.builtin.service:
     name: fail2ban
     state: started
-    enabled: yes
-  ignore_errors: yes # Gracefully handle if fail2ban isn't available/configured yet
+    enabled: true
+  failed_when: false # Gracefully handle if fail2ban isn't available/configured yet
 
 - name: Secure SSH - Disable Root Login
   ansible.builtin.lineinfile:
@@ -41,10 +41,11 @@
 - name: Secure SSH - Disable Password Authentication
   ansible.builtin.lineinfile:
     path: /etc/ssh/sshd_config
+    regexp: '^#?PasswordAuthentication'
+    line: 'PasswordAuthentication no'
     validate: 'sshd -t -f %s'
   notify: Restart SSH
 
 - name: Security Audit Reminder
   ansible.builtin.debug:
     msg: "Hardening complete. Run 'sudo lynis audit system' to verify your security score."
-

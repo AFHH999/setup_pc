@@ -7,14 +7,16 @@
   ansible.builtin.service:
     name: NetworkManager
     state: started
-    enabled: yes
+    enabled: true
 
 - name: Configure WiFi Connection
   community.general.nmcli:
     type: wifi
     conn_name: "{{ wifi_ssid }}"
     ssid: "{{ wifi_ssid }}"
-    psk: "{{ wifi_password }}"
+    wifi_sec:
+      key-mgmt: wpa-psk
+      psk: "{{ wifi_password }}"
     state: present
   no_log: true  # CRITICAL: Don't show the password in logs!
   when: wifi_ssid is defined and wifi_password is defined

@@ -12,7 +12,8 @@
     - zsh
     - tmux
     - hypr
-  ignore_errors: yes
+  changed_when: false
+  failed_when: false
 
 - name: Set zsh as default shell for the current user
   ansible.builtin.user:
