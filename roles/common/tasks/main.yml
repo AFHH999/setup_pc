@@ -7,6 +7,10 @@
     file: "{{ ansible_facts['os_family'] }}.yml"
 
 - name: Update package cache and install Common packages
-  ansible.builtin.package:
-    name: "{{ common_packages }}"
-    state: present
+    ansible.builtin.package:
+      name: "{{ common_packages }}"
+      state: present
+  
+  - name: Configure WiFi
+    ansible.builtin.include_tasks: wifi.yml
+  

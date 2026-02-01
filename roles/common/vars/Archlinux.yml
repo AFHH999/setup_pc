@@ -13,3 +13,5 @@ common_packages:
   - trash-cli
   - lynis
   - ufw
+  - make
+  - ansible-lint
