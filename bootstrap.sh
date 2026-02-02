@@ -20,7 +20,7 @@ fi
 
 # 3. Install Ansible Galaxy collections
 echo "Installing required Ansible collections..."
-ansible-galaxy collection install community.general
+ansible-galaxy collection install community.general kewlfft.aur
 
 # 4. Run the playbook
 # --ask-become-pass: Prompt for sudo password

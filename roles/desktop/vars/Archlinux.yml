@@ -3,4 +3,6 @@ desktop_packages:
   - waybar
   - kitty
   - ttf-jetbrains-mono-nerd
-  - zsh-theme-powerlevel10k
+
+desktop_aur_packages:
+  - zsh-theme-powerlevel10k-git

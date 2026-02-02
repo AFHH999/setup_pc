@@ -2,7 +2,17 @@
   ansible.builtin.include_vars:
     file: "{{ ansible_facts['os_family'] }}.yml"
 
-- name: Install Desktop Environment packages
+- name: Install Desktop Environment packages (Standard)
   ansible.builtin.package:
     name: "{{ desktop_packages }}"
     state: present
+
+- name: Install Desktop Environment packages (AUR)
+  kewlfft.aur.aur:
+    name: "{{ desktop_aur_packages }}"
+    state: present
+    use: yay
+  become: false # AUR helpers should not run as root
+  when:
+    - ansible_facts['os_family'] == "Archlinux"
+    - desktop_aur_packages is defined
